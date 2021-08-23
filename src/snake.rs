@@ -4,10 +4,13 @@ const DIRECTION: [(isize, isize); 4] = [(-1, 0), (0, 1), (1, 0), (0, -1)];
 pub struct Snake {
     pub is_alive: bool,
     pub blocks: Vec<(isize, isize)>,
+
+    // direction is an integer number from 0 to 3
     pub direction: usize,
 }
 
 impl Snake {
+    // creating a new snake
     pub fn new(head_position: (isize, isize), direction: usize, length: usize) -> Self {
         let mut blocks: Vec<(isize, isize)> = Vec::new();
         blocks.push(head_position);
@@ -24,12 +27,14 @@ impl Snake {
         }
     }
 
+    // changing the current direction
     pub fn turn(&mut self, action: usize) {
         if (self.direction % 2) != (action % 2) {
             self.direction = action;
         }
     }
 
+    // moving one step in the current direction
     pub fn step(&mut self) -> ((isize, isize), (isize, isize)) {
         let tail: (isize, isize) = self.blocks.pop().unwrap();
         let new_head: (isize, isize) = (
