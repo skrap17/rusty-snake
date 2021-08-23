@@ -3,7 +3,6 @@ use rand::{thread_rng, Rng};
 use std::collections::HashSet;
 use std::io::{self, Write};
 use std::iter::FromIterator;
-// use termion::{color::*, cursor, raw::*};
 
 use crossterm::{
     cursor,
@@ -20,7 +19,6 @@ pub struct World {
     pub score: usize,
     pub speed: usize,
     pub reward: usize,
-    // out: RawTerminal<io::Stdout>,
     out: std::io::Stdout,
 }
 
@@ -37,13 +35,11 @@ impl World {
             }
         }
         let snake = Snake::new(head_position, direction, snake_size);
-        // let mut out = io::stdout();
         let mut out = io::stdout();
         match enable_raw_mode() {
             Err(e) => panic!("{}", e.to_string()),
             Ok(_) => {}
         };
-        // write!(out, "{}{}", cursor::Hide, termion::clear::All)?;
         write!(
             out,
             "{}{}",
@@ -119,35 +115,6 @@ impl World {
             self.init_food();
         }
     }
-
-    // pub fn draw(&mut self) -> io::Result<()> {
-    //     let grid = self.get_state();
-    //     write!(self.out, "{}", cursor::Goto(1, 1))?;
-    //     let wall = format!("{}  {}", Bg(White), Bg(Reset));
-    //     let plank = wall.repeat(self.size.1 + 2);
-    //     writeln!(self.out, "{}\r", plank)?;
-    //     for i in 0..self.size.0 {
-    //         write!(self.out, "{}", wall)?;
-    //         for j in 0..self.size.1 {
-    //             match grid[i][j] {
-    //                 1 => write!(self.out, "{}  {}", Bg(LightGreen), Bg(Reset)),
-    //                 2 => write!(self.out, "{}  {}", Bg(Green), Bg(Reset)),
-    //                 3 => write!(self.out, "{}  {}", Bg(Red), Bg(Reset)),
-    //                 _ => write!(self.out, "  "),
-    //             }?;
-    //         }
-    //         writeln!(self.out, "{}\r", wall)?;
-    //     }
-    //     write!(self.out, "{}{}{}", Fg(Black), plank, Bg(White))?;
-    //     writeln!(
-    //         self.out,
-    //         "{}  Your score is: {}\r",
-    //         cursor::Goto(1, 2 + self.size.0 as u16),
-    //         self.score
-    //     )?;
-    //     self.out.flush()?;
-    //     Ok(())
-    // }
 
     pub fn draw(&mut self) -> Result<()> {
         let grid = self.get_state();
