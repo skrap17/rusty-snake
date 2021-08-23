@@ -1,0 +1,11 @@
+/Users/slavakarpii/Desktop/rst/snake/target/debug/deps/getrandom-f6771422d7dd294d.rmeta: /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/lib.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/error.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/util.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/error_impls.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/util_libc.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/use_file.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/macos.rs
+
+/Users/slavakarpii/Desktop/rst/snake/target/debug/deps/getrandom-f6771422d7dd294d.d: /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/lib.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/error.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/util.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/error_impls.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/util_libc.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/use_file.rs /Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/macos.rs
+
+/Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/lib.rs:
+/Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/error.rs:
+/Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/util.rs:
+/Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/error_impls.rs:
+/Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/util_libc.rs:
+/Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/use_file.rs:
+/Users/slavakarpii/.cargo/registry/src/github.com-1ecc6299db9ec823/getrandom-0.2.3/src/macos.rs:
