@@ -23,6 +23,7 @@ pub struct World {
 }
 
 impl World {
+    // creting new game world
     pub fn new(size: (usize, usize), snake_size: usize, reward: usize) -> io::Result<Self> {
         let direction: usize = thread_rng().gen_range(0..4);
         let x = thread_rng().gen_range(snake_size..size.0 - snake_size - 1) as isize;
@@ -60,6 +61,7 @@ impl World {
         Ok(world)
     }
 
+    // finding available positions and adding food there
     fn init_food(&mut self) {
         if self.snake.is_alive {
             let snake_positions: HashSet<(isize, isize)> =
@@ -72,6 +74,11 @@ impl World {
         }
     }
 
+    // returns a 2d array that represents the state of each cell in the game
+    // 0 - empty
+    // 1 - snake body
+    // 2 - snake head
+    // 3 - food
     pub fn get_state(&self) -> Vec<Vec<isize>> {
         let mut grid: Vec<Vec<isize>> = Vec::new();
         for _i in 0..self.size.0 {
@@ -90,6 +97,8 @@ impl World {
         self.snake.turn(action);
     }
 
+    // turning the snake in the current direction
+    // and checking for eating and self-intersections
     pub fn move_snake(&mut self) {
         let mut new_food_needed = false;
         if self.snake.is_alive {
@@ -116,6 +125,7 @@ impl World {
         }
     }
 
+    // rendering the world in terminal
     pub fn draw(&mut self) -> Result<()> {
         let grid = self.get_state();
         write!(self.out, "{}", cursor::MoveTo(0, 0))?;
