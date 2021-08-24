@@ -54,4 +54,5 @@ fn main() {
             panic!("Drawing error: {}", e.to_string())
         }
     }
+    world.clean().expect("Error with cleaning the terminal up");
 }

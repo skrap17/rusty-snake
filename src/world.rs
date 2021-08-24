@@ -7,8 +7,8 @@ use std::iter::FromIterator;
 use crossterm::{
     cursor,
     style::{Color, ResetColor, SetBackgroundColor, SetForegroundColor},
-    terminal::{self, enable_raw_mode},
-    Result,
+    terminal::{self, disable_raw_mode, enable_raw_mode},
+    ExecutableCommand, Result,
 };
 
 pub struct World {
@@ -127,7 +127,7 @@ impl World {
     // rendering the world in terminal
     pub fn draw(&mut self) -> Result<()> {
         let grid = self.get_state();
-        write!(self.out, "{}", cursor::MoveTo(0, 0))?;
+        self.out.execute(cursor::MoveTo(0, 0))?;
         let wall = format!("{}  {}", SetBackgroundColor(Color::White), ResetColor);
         let plank = wall.repeat(self.size.1 + 2);
         writeln!(self.out, "{}\r", plank)?;
@@ -158,7 +158,7 @@ impl World {
             }
             writeln!(self.out, "{}\r", wall)?;
         }
-        write!(self.out, "{}", plank)?;
+        writeln!(self.out, "{}\r", plank)?;
         writeln!(
             self.out,
             "{}{}{}  Your score is: {}\r",
@@ -168,6 +168,13 @@ impl World {
             self.score
         )?;
         self.out.flush()?;
+        Ok(())
+    }
+
+    // cleaning up the terminal
+    pub fn clean(&mut self) -> Result<()> {
+        self.out.execute(cursor::Show)?;
+        disable_raw_mode()?;
         Ok(())
     }
 }
