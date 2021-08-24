@@ -40,9 +40,8 @@ impl KeyEventQueue {
     pub fn send_events(&self) -> crossterm::Result<()> {
         loop {
             if poll(Duration::from_millis(10))? {
-                match read()? {
-                    Event::Key(event) => self.add_event(event),
-                    _ => {}
+                if let Event::Key(event) = read()? {
+                    self.add_event(event)
                 }
             }
         }

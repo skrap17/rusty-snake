@@ -12,12 +12,11 @@ pub struct Snake {
 impl Snake {
     // creating a new snake
     pub fn new(head_position: (isize, isize), direction: usize, length: usize) -> Self {
-        let mut blocks: Vec<(isize, isize)> = Vec::new();
-        blocks.push(head_position);
+        let mut blocks: Vec<(isize, isize)> = vec![head_position];
         let mut pos: (isize, isize) = (head_position.0, head_position.1);
         for _i in 1..length {
-            pos.0 = pos.0 - DIRECTION[direction].0;
-            pos.1 = pos.1 - DIRECTION[direction].1;
+            pos.0 -= DIRECTION[direction].0;
+            pos.1 -= DIRECTION[direction].1;
             blocks.push(pos);
         }
         Snake {

@@ -37,10 +37,9 @@ impl World {
         }
         let snake = Snake::new(head_position, direction, snake_size);
         let mut out = io::stdout();
-        match enable_raw_mode() {
-            Err(e) => panic!("{}", e.to_string()),
-            Ok(_) => {}
-        };
+        if let Err(e) = enable_raw_mode() {
+            panic!("{}", e.to_string())
+        }
         write!(
             out,
             "{}{}",
@@ -65,7 +64,7 @@ impl World {
     fn init_food(&mut self) {
         if self.snake.is_alive {
             let snake_positions: HashSet<(isize, isize)> =
-                HashSet::from_iter(self.snake.blocks.iter().cloned());
+                self.snake.blocks.iter().cloned().collect::<HashSet<_, _>>();
             let current_available_positions =
                 Vec::from_iter(self.available_positions.difference(&snake_positions));
             let idx = thread_rng().gen_range(0..current_available_positions.len());
@@ -132,10 +131,10 @@ impl World {
         let wall = format!("{}  {}", SetBackgroundColor(Color::White), ResetColor);
         let plank = wall.repeat(self.size.1 + 2);
         writeln!(self.out, "{}\r", plank)?;
-        for i in 0..self.size.0 {
+        for i in grid.iter().take(self.size.0) {
             write!(self.out, "{}", wall)?;
-            for j in 0..self.size.1 {
-                match grid[i][j] {
+            for j in i.iter().take(self.size.1) {
+                match j {
                     1 => write!(
                         self.out,
                         "{}  {}",
