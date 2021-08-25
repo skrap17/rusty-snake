@@ -6,3 +6,4 @@ Terminal-based clone of a popular game Snake written in Rust.
 
   - `W/A/S/D` or `Arrows` to turn the snake
   - `Q` to quit
+  - `SPACEBAR` to pause/unpause

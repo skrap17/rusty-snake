@@ -2,7 +2,7 @@ use std::f32::consts::E;
 use std::thread::{self, sleep};
 use std::time::Duration;
 
-use crossterm::event::{KeyCode, KeyEvent};
+use crossterm::event::KeyCode;
 
 mod events;
 mod snake;
@@ -29,25 +29,15 @@ fn main() {
         sleep(Duration::from_millis(interval));
         let last = event_queue.get_last_event();
         if let Some(event) = last {
-            if event == KeyEvent::from(KeyCode::Char('q')) {
-                break;
-            } else if event == KeyEvent::from(KeyCode::Char('a'))
-                || event == KeyEvent::from(KeyCode::Left)
-            {
-                world.turn_snake(3);
-            } else if event == KeyEvent::from(KeyCode::Char('d'))
-                || event == KeyEvent::from(KeyCode::Right)
-            {
-                world.turn_snake(1);
-            } else if event == KeyEvent::from(KeyCode::Char('w'))
-                || event == KeyEvent::from(KeyCode::Up)
-            {
-                world.turn_snake(0);
-            } else if event == KeyEvent::from(KeyCode::Char('s'))
-                || event == KeyEvent::from(KeyCode::Down)
-            {
-                world.turn_snake(2);
-            }
+            match event.code {
+                KeyCode::Char('q') => break,
+                KeyCode::Char(' ') => world.pause(),
+                KeyCode::Char('a') | KeyCode::Left => world.turn_snake(3),
+                KeyCode::Char('d') | KeyCode::Right => world.turn_snake(1),
+                KeyCode::Char('w') | KeyCode::Up => world.turn_snake(0),
+                KeyCode::Char('s') | KeyCode::Down => world.turn_snake(2),
+                _ => {}
+            };
         }
         world.move_snake();
         if let Err(e) = world.draw() {

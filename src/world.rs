@@ -13,13 +13,14 @@ use crossterm::{
 
 pub struct World {
     pub snake: Snake,
-    pub size: (usize, usize),
-    pub food_position: (isize, isize),
-    pub available_positions: HashSet<(isize, isize)>,
-    pub score: usize,
+    size: (usize, usize),
+    food_position: (isize, isize),
+    available_positions: HashSet<(isize, isize)>,
+    score: usize,
     pub speed: usize,
-    pub reward: usize,
+    reward: usize,
     out: std::io::Stdout,
+    is_pause: bool,
 }
 
 impl World {
@@ -55,6 +56,7 @@ impl World {
             speed: 1,
             reward,
             out,
+            is_pause: false,
         };
         world.init_food();
         Ok(world)
@@ -78,7 +80,7 @@ impl World {
     // 1 - snake body
     // 2 - snake head
     // 3 - food
-    pub fn get_state(&self) -> Vec<Vec<isize>> {
+    fn get_state(&self) -> Vec<Vec<isize>> {
         let mut grid: Vec<Vec<isize>> = Vec::new();
         for _i in 0..self.size.0 {
             let row = vec![0; self.size.1];
@@ -93,12 +95,17 @@ impl World {
     }
 
     pub fn turn_snake(&mut self, action: usize) {
-        self.snake.turn(action);
+        if !self.is_pause {
+            self.snake.turn(action);
+        }
     }
 
     // turning the snake in the current direction
     // and checking for eating and self-intersections
     pub fn move_snake(&mut self) {
+        if self.is_pause {
+            return;
+        }
         let mut new_food_needed = false;
         if self.snake.is_alive {
             let move_result = self.snake.step();
@@ -126,6 +133,9 @@ impl World {
 
     // rendering the world in terminal
     pub fn draw(&mut self) -> Result<()> {
+        if self.is_pause {
+            return Ok(());
+        }
         let grid = self.get_state();
         self.out.execute(cursor::MoveTo(0, 0))?;
         let wall = format!("{}  {}", SetBackgroundColor(Color::White), ResetColor);
@@ -176,5 +186,10 @@ impl World {
         self.out.execute(cursor::Show)?;
         disable_raw_mode()?;
         Ok(())
+    }
+
+    // pause/unpause
+    pub fn pause(&mut self) {
+        self.is_pause = !self.is_pause;
     }
 }
